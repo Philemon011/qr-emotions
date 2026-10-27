@@ -1,26 +1,245 @@
+/* ============================================
+   GLOBALS.CSS — Design System de base
+   QR Emotions — Fondations typo, couleurs, tokens
+   ============================================ */
+
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ---- Polices auto-hébergées (Fontsource) ---- */
+/* Google Sans Flex : police variable pour les titres (display) */
+@import "@fontsource-variable/google-sans-flex/wght.css";
+
+/* Poppins : graisses statiques pour le corps de texte */
+@import "@fontsource/poppins/300.css";
+@import "@fontsource/poppins/400.css";
+@import "@fontsource/poppins/500.css";
+@import "@fontsource/poppins/600.css";
+@import "@fontsource/poppins/700.css";
+@import "@fontsource/poppins/800.css";
+
+/* ============================================
+   THEME TOKENS (Tailwind v4 — config CSS-first)
+   ============================================ */
+@theme {
+  /* --- Typographie --- */
+  --font-display: "Google Sans Flex Variable", "Poppins", sans-serif;
+  --font-sans: "Poppins", sans-serif;
+
+  /* --- Neutrals (base du site, hors couleurs de thème) --- */
+  --color-ink-950: #0a0a0c;
+  --color-ink-900: #16161a;
+  --color-ink-700: #3a3a42;
+  --color-ink-500: #6b6b75;
+  --color-ink-300: #a8a8b3;
+  --color-ink-100: #e8e8ec;
+  --color-paper-50: #ffffff;
+  --color-paper-100: #f7f7f9;
+
+  /* --- Espacements custom (en plus de l'échelle Tailwind par défaut) --- */
+  --spacing-section: 6rem;
+  --spacing-section-sm: 3rem;
+
+  /* --- Border-radius : système arrondi cohérent "premium" --- */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+  --radius-full: 999px;
+
+  /* --- Ombres douces, jamais dures --- */
+  --shadow-soft: 0 4px 24px -4px rgb(0 0 0 / 0.08);
+  --shadow-card: 0 8px 40px -8px rgb(0 0 0 / 0.12);
+  --shadow-float: 0 16px 60px -12px rgb(0 0 0 / 0.18);
+
+    /* --- Couleurs vives "émotions" — réutilisées pour les pastilles, le titre dynamique du Hero, et les accents --- */
+  --color-joie: #ffc93c;
+  --color-amour: #ff5c8a;
+  --color-gratitude: #8b5cf6;
+  --color-tendresse: #14b8a6;
+  --color-bonheur: #fb923c;
+
+  /* --- Couleur de marque (CTA principal, liens actifs) --- */
+  --color-brand-500: #ff4d8d;
+  --color-brand-600: #e8377a;
+
+  /* --color-brand-500: #8b5cf6;
+  --color-brand-600: #7c3aed; */
+
+
+     --animate-marquee: marquee 15s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+
+    /* --- Thème "Élégant" (Anniversaire) — palette sobre, indépendante des couleurs vives du site --- */
+  --color-elegant-bg: #fbf7f0;
+  --color-elegant-accent: #b08d57;
+
+    /* --- Thème "Luxe" (Anniversaire) — fond sombre, accent or plus saturé --- */
+  --color-luxe-bg: #0e0e10;
+  --color-luxe-accent: #d4af37;
+  --color-luxe-card: #17171a;
+
+    /* --- Thème "Festif" (Anniversaire) — fond vif, confettis multicolores --- */
+  --color-festif-bg: #ff4470;
+  --color-festif-card: #ffffff;
+
+    /* --- Thème "Doux" (Anniversaire) — pastel, apaisant --- */
+  --color-doux-bg: #fdf2f4;
+  --color-doux-blob-1: #f6d9e0;
+  --color-doux-blob-2: #e6ddf5;
+  --color-doux-accent: #d99bb0;
+
+    /* --- Thème "Ciel" (Anniversaire) — bleu, nuages, effet jour/nuit --- */
+  --color-ciel-bg: #7ec4e8;
+  --color-ciel-cloud: #ffffff;
+  --color-ciel-card: #10233d;
+  --color-ciel-star: #ffd166;
+
+    /* --- Thème "Amoureux" (Anniversaire) — bordeaux, ambiance bougie --- */
+  --color-amoureux-bg: #2b0f14;
+  --color-amoureux-card: #3d151c;
+  --color-amoureux-accent: #e8a0a8;
+  --color-amoureux-glow: #ffb27a;
+
+    /* --- Thème "Mon Homme" (Anniversaire) — ambré, sobre, masculin --- */
+  --color-monhomme-bg: #1a1613;
+  --color-monhomme-card: #221c18;
+  --color-monhomme-accent: #c08552;
+
+    /* --- Thème "Timide" (Déclaration d'amour) — pastel très doux, hésitant --- */
+  --color-timide-bg: #fff0f3;
+  --color-timide-accent: #e8aabb;
+
+    /* --- Thème "Passion" (Déclaration d'amour) — noir dramatique, cramoisi intense --- */
+  --color-passion-bg: #0f0509;
+  --color-passion-card: #1c0810;
+  --color-passion-accent: #e0113a;
+  --color-passion-glow: #ff2d55;
+
+    /* --- Thème "Lettre manuscrite" (Déclaration d'amour) — papier, cire, écriture --- */
+  --color-lettre-bg: #d8c9a8;
+  --color-lettre-paper: #f7f0dd;
+  --color-lettre-ink: #3a2f22;
+  --color-lettre-seal: #8c1f2e;
+
+    /* --- Thème "Lettre manuscrite" v3 (Déclaration d'amour) — notebook doodle --- */
+  --color-notebook-line: #cfe0f0;
+  --color-notebook-margin: #e8909e;
+
+    /* --- Thème "Nuit étoilée" (Déclaration d'amour) — rouge sombre, or scintillant --- */
+  --color-nuit-bg: #2b0509;
+  --color-nuit-card: #45090f;
+  --color-nuit-star: #e3b04b;
+
+
+    /* --- Thème "Néon" (Déclaration d'amour) — électrique, glow, glitch --- */
+  --color-neon-bg: #08040f;
+  --color-neon-pink: #ff2ee6;
+  --color-neon-cyan: #2ef2ff;
+  --color-neon-violet: #a24bff;
+
+
+    /* --- Thème "Pop Art" (Déclaration d'amour) : jaune vif, rouge, bleu, contours noirs --- */
+  --color-pop-yellow: #ffd60a;
+  --color-pop-red: #ff2d55;
+  --color-pop-blue: #1e6bff;
+  --color-pop-ink: #111111;
+
+    /* --- Thème "Carte à gratter" (Saint-Valentin) : framboise, crème, or --- */
+  --color-gratter-bg: #c81d4e;
+  --color-gratter-card: #fff7ee;
+  --color-gratter-gold: #e0a83a;
+  --color-gratter-ink: #4a0b1f;
+
+    /* --- Thème "Rideau de velours" (Saint-Valentin) : rouge théâtre, or, cantonnière --- */
+  --color-rideau-red: #6b0f1a;
+  --color-rideau-red-dark: #4a0a12;
+  --color-rideau-gold: #d4a94a;
+  --color-rideau-stage: #1a1210;
+
+    /* --- Thème "Boîte de chocolats" (Saint-Valentin) : rose poudré, lavande, bordeaux, ruban satiné --- */
+  --color-choco-bg: #ffd9ec;
+  --color-choco-bg2: #e3d3f5;
+  --color-choco-box: #7a1734;
+  --color-choco-box-dark: #5c0f26;
+  --color-choco-ribbon: #f0417a;
+  --color-choco-ribbon-light: #ff9dc4;
+  --color-choco-gold: #e0b24a;
+
+    /* --- Thème "Dîner aux chandelles" (Saint-Valentin) : bordeaux, or, lueur de bougie --- */
+  --color-diner-bg: #2e0e14;
+  --color-diner-bg2: #4a1420;
+  --color-diner-gold: #e3b04b;
+  --color-diner-flame: #ffb84d;
+  --color-diner-wine: #7a1f3a;
+
+      /* --- Thème "Cupidon" (Saint-Valentin) : violet nuit, magenta, or, éclair --- */
+  --color-cupidon-bg: #1a0b2e;
+  --color-cupidon-card: #2a1245;
+  --color-cupidon-magenta: #ff2d8c;
+  --color-cupidon-gold: #ffc94a;
+  --color-cupidon-violet: #8b3bff;
+
+       /* --- Thème "Rétro 70s" (Saint-Valentin) : rose vintage dominant, touches moutarde/brun --- */
+  --color-retro-cream: #fbe4ec;
+  --color-retro-mustard: #e8a93a;
+  --color-retro-terracotta: #e0527a;
+  --color-retro-brown: #7a1f3f;
+  --color-retro-rust: #b8305a;
+
+     /* --- Thème "Écrin" (Demande en mariage) : velours profond, or, éclat du diamant --- */
+  --color-ecrin-bg: #1c1420;
+  --color-ecrin-velvet: #2e1f38;
+  --color-ecrin-gold: #d4af6a;
+  --color-ecrin-diamond: #eaf6ff;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ============================================
+   BASE LAYER
+   ============================================ */
+@layer base {
+  html {
+    /* Anti-aliasing propre sur tous les navigateurs */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-paper-50);
+    color: var(--color-ink-950);
+    /* Letter-spacing légèrement resserré par défaut pour le corps */
+    letter-spacing: -0.01em;
+  }
+
+  /* Tous les titres utilisent Google Sans Flex, bien serrés */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+
+  /* Les très grands titres (hero) sont encore plus resserrés */
+  h1 {
+    letter-spacing: -0.04em;
   }
 }
 
+
+/* ============================================
+   TEXTURE DE FOND — grain très subtil sur tout le site
+   Casse l'effet "page blanche plate" sans être visible consciemment.
+   ============================================ */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-image: radial-gradient(var(--color-ink-100) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-position: -14px -14px;
 }
